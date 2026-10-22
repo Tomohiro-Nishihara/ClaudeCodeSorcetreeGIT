@@ -1,4 +1,4 @@
 public with sharing class gittest {
    
-    //メイン
+    //Tomoが作成したGITTestのクラスです
 }
