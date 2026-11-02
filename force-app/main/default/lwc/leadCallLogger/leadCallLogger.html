@@ -1,0 +1,93 @@
+<template>
+    <lightning-card title="架電記録" icon-name="standard:log_a_call">
+        <div class="slds-p-horizontal_medium">
+ 
+            <!-- 上部:リード情報 -->
+            <template if:true={lead}>
+                <dl class="slds-grid slds-wrap slds-m-bottom_medium">
+                    <dt class="slds-col slds-size_1-of-4 slds-text-color_weak">氏名</dt>
+                    <dd class="slds-col slds-size_3-of-4">{leadName}</dd>
+                    <dt class="slds-col slds-size_1-of-4 slds-text-color_weak">会社名</dt>
+                    <dd class="slds-col slds-size_3-of-4">{company}</dd>
+                    <dt class="slds-col slds-size_1-of-4 slds-text-color_weak">電話番号</dt>
+                    <dd class="slds-col slds-size_3-of-4">
+                        <template if:true={phone}>
+                            <a href={telHref}>{phone}</a>
+                        </template>
+                        <template if:false={phone}>未登録</template>
+                    </dd>
+                    <dt class="slds-col slds-size_1-of-4 slds-text-color_weak">ステータス</dt>
+                    <dd class="slds-col slds-size_3-of-4">
+                        <lightning-badge label={status}></lightning-badge>
+                    </dd>
+                </dl>
+            </template>
+ 
+            <!-- 入力フォーム -->
+            <lightning-combobox
+                name="callResult"
+                label="架電結　果"
+                placeholder="選択してください"
+                options={resultOptions}
+                value={callResult}
+                required
+                onchange={handleResultChange}
+            ></lightning-combobox>
+ 
+            <lightning-textarea
+                name="memo"
+                label="メモ"
+                value={memo}
+                max-length="2000"
+                onchange={handleMemoChange}
+            ></lightning-textarea>
+ 
+            <lightning-input
+                type="date"
+                name="nextCallDate"
+                label="次回架電日(任意)"
+                value={nextCallDate}
+                onchange={handleDateChange}
+            ></lightning-input>
+ 
+            <lightning-button
+                class="slds-m-top_medium"
+                variant="brand"
+                label="記録する"
+                onclick={handleSave}
+                disabled={isSaving}
+            ></lightning-button>
+ 
+            <!-- 下部:履歴 -->
+            <h3 class="slds-text-heading_small slds-m-top_large slds-m-bottom_small">
+                直近の架電履歴
+            </h3>
+            <template if:true={hasHistory}>
+                <ul class="slds-has-dividers_bottom-space">
+                    <template for:each={history} for:item="item">
+                        <li key={item.Id} class="slds-item">
+                            <p class="slds-text-body_regular">{item.Subject}</p>
+                            <p class="slds-text-color_weak slds-text-body_small">
+                                <lightning-formatted-date-time
+                                    value={item.CreatedDate}
+                                    year="numeric"
+                                    month="2-digit"
+                                    day="2-digit"
+                                    hour="2-digit"
+                                    minute="2-digit"
+                                ></lightning-formatted-date-time>
+                                &nbsp;/&nbsp;{item.OwnerName}
+                            </p>
+                            <template if:true={item.Description}>
+                                <p class="slds-text-body_small">{item.Description}</p>
+                            </template>
+                        </li>
+                    </template>
+                </ul>
+            </template>
+            <template if:false={hasHistory}>
+                <p class="slds-text-color_weak">架電履歴はまだありません。</p>
+            </template>
+        </div>
+    </lightning-card>
+</template>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <label>架電記録</label>
+    <nameField>
+        <displayFormat>CALL-{000000}</displayFormat>
+        <label>架電記録番号</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>架電記録</pluralLabel>
+    <sharingModel>Read</sharingModel>
+</CustomObject>

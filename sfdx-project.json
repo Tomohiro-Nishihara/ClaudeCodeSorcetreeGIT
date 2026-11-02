@@ -1,0 +1,12 @@
+{
+  "packageDirectories": [
+    {
+      "path": "force-app",
+      "default": true
+    }
+  ],
+  "name": "ClaudeCode-Sourcetree(GIT)",
+  "namespace": "",
+  "sfdcLoginUrl": "https://orgfarm-f06956cb13-dev-ed.develop.my.salesforce.com",
+  "sourceApiVersion": "68.0"
+}

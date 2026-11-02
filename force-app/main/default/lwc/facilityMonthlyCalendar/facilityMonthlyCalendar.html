@@ -1,0 +1,72 @@
+<template>
+    <lightning-card title="施設カレンダー" icon-name="standard:account">
+        <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+            <lightning-combobox
+                name="facility"
+                label="施設"
+                placeholder="施設を選択してください"
+                options={facilityOptions}
+                value={selectedFacilityId}
+                onchange={handleFacilityChange}
+            ></lightning-combobox>
+
+            <template if:true={selectedFacilityId}>
+                <div class="month-navigation slds-m-vertical_medium">
+                    <lightning-button-icon
+                        icon-name="utility:chevronleft"
+                        alternative-text="前月"
+                        title="前月"
+                        onclick={handlePreviousMonth}
+                    ></lightning-button-icon>
+                    <h2 class="slds-text-heading_medium" aria-live="polite">
+                        {monthLabel}
+                    </h2>
+                    <lightning-button-icon
+                        icon-name="utility:chevronright"
+                        alternative-text="翌月"
+                        title="翌月"
+                        onclick={handleNextMonth}
+                    ></lightning-button-icon>
+                </div>
+
+                <template if:true={isLoading}>
+                    <lightning-spinner
+                        alternative-text="カレンダーを読み込み中"
+                        size="small"
+                    ></lightning-spinner>
+                </template>
+
+                <div class="calendar" aria-label={monthLabel}>
+                    <template for:each={weekdays} for:item="weekday">
+                        <div key={weekday} class="weekday">{weekday}</div>
+                    </template>
+                    <template for:each={calendarWeeks} for:item="week">
+                        <template for:each={week} for:item="day">
+                            <section
+                                key={day.key}
+                                class={day.className}
+                                aria-label={day.ariaLabel}
+                            >
+                                <span class="day-number">{day.dayNumber}</span>
+                                <ul class="event-list">
+                                    <template for:each={day.events} for:item="calendarEvent">
+                                        <li key={calendarEvent.id} class="calendar-event">
+                                            <span class="event-time">{calendarEvent.timeLabel}</span>
+                                            <span class="event-subject">{calendarEvent.subject}</span>
+                                        </li>
+                                    </template>
+                                </ul>
+                            </section>
+                        </template>
+                    </template>
+                </div>
+            </template>
+
+            <template if:false={selectedFacilityId}>
+                <p class="slds-m-top_medium slds-text-color_weak">
+                    施設を選択すると、1か月分のカレンダーを表示します。
+                </p>
+            </template>
+        </div>
+    </lightning-card>
+</template>

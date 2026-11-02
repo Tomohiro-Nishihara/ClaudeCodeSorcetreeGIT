@@ -1,0 +1,28 @@
+<template>
+    
+   <lightning-card title="シンプルカウンター">
+        <div class="slds-p-around_medium slds-text-align_center">
+            <p class="slds-text-heading_large" aria-live="polite">{count}</p>
+            <div class="slds-m-top_medium">
+                <lightning-button
+                    label="減らす"
+                    title="カウントを1減らす"
+                    onclick={decrement}
+                ></lightning-button>
+                <lightning-button
+                    class="slds-m-left_small"
+                    label="増やす"
+                    title="カウントを1増やす"
+                    onclick={increment}
+                ></lightning-button>
+            </div>
+            <lightning-button
+                class="slds-m-top_medium"
+                label="リセット"
+                title="カウントを0に戻す"
+                onclick={reset}
+            ></lightning-button>
+        </div>
+    </lightning-card>
+
+</template>
